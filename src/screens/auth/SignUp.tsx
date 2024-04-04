@@ -1,33 +1,37 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { Button, Header, Input, Terms } from "@/components";
+import { Button, Input, Terms } from "@/components";
 import { AuthTitle } from "./components";
 
-export function SignUpScreen() {
+export function SignUpScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Header />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.content}>
-          <AuthTitle title="Cadastre sua conta" />
-          <Input placeholder="Nome" />
-          <Input placeholder="CPF" keyboardType="numeric" />
-          <Input placeholder="Data de nascimento" />
-          <Input placeholder="E-mail" keyboardType="email-address" />
-          <Input placeholder="Senha" secureTextEntry />
-          <Button>Cadastrar</Button>
-          <Button variant="secondary">Já possui login?</Button>
-          <Terms />
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View style={styles.content}>
+        <AuthTitle title="Cadastre sua conta" />
+        <Input placeholder="Nome" />
+        <Input placeholder="CPF" keyboardType="numeric" />
+        <Input placeholder="Data de nascimento" />
+        <Input placeholder="E-mail" keyboardType="email-address" />
+        <Input placeholder="Senha" secureTextEntry />
+        <Button>Cadastrar</Button>
+        <Button
+          variant="secondary"
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Welcome" }, { name: "SignIn" }],
+            });
+          }}
+        >
+          Já possui login?
+        </Button>
+        <Terms />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
     flex: 1,
     gap: 12,

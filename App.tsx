@@ -4,10 +4,12 @@ import {
   Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
+import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar, StyleSheet, View } from "react-native";
 
-import { HomeScreen } from "@/screens";
+import { Header } from "@/components";
+import { StackNavigator } from "@/screens";
 import { theme } from "@/styles";
 import { useCallback } from "react";
 
@@ -36,7 +38,22 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <HomeScreen />
+      <Header />
+      <NavigationContainer
+        theme={{
+          dark: true,
+          colors: {
+            background: theme.zinc[950],
+            border: theme.zinc[900],
+            card: theme.zinc[900],
+            notification: theme.zinc[900],
+            primary: theme.primary[500],
+            text: theme.zinc[100],
+          },
+        }}
+      >
+        <StackNavigator />
+      </NavigationContainer>
     </View>
   );
 }

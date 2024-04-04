@@ -6,12 +6,20 @@ import {
 } from "react-native";
 
 import { theme } from "@/styles";
+import { useNavigation } from "@react-navigation/native";
 
 interface BackButtonProps extends TouchableOpacityProps {}
 
 export function BackButton({ ...props }: BackButtonProps) {
+  const { goBack } = useNavigation();
+
   return (
-    <TouchableOpacity style={styles.button} activeOpacity={0.7} {...props}>
+    <TouchableOpacity
+      style={styles.button}
+      activeOpacity={0.7}
+      onPress={goBack}
+      {...props}
+    >
       <ChevronLeft size={16} color={theme.zinc[100]} />
     </TouchableOpacity>
   );

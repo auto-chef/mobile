@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { ChefIAButton } from "@/components/ChefIAButton";
+import { ChefIAButton } from "@/components";
 import { OrderSection } from "./components";
 
 export function HomeScreen() {

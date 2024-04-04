@@ -1,11 +1,24 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import { EmptyOrderList } from "./components";
+import { ChefIAButton } from "@/components/ChefIAButton";
+import { OrderSection } from "./components";
 
 export function HomeScreen() {
   return (
     <View style={styles.content}>
-      <EmptyOrderList />
+      <ScrollView
+        style={styles.content}
+        contentContainerStyle={{
+          rowGap: 24,
+          paddingVertical: 24,
+        }}
+      >
+        <OrderSection status="PENDING" />
+        <OrderSection status="ACCEPTED" />
+        <OrderSection status="DELIVERED" />
+        <OrderSection status="REJECTED" />
+      </ScrollView>
+      <ChefIAButton />
     </View>
   );
 }
@@ -13,7 +26,5 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-
-    padding: 24,
   },
 });

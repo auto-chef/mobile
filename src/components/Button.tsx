@@ -6,14 +6,17 @@ import {
 } from "react-native";
 
 import { theme } from "@/styles";
+import { LucideIcon } from "lucide-react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
   variant?: "primary" | "secondary";
+  icon?: LucideIcon;
 }
 
 export function Button({
   children,
   variant = "primary",
+  icon: Icon,
   ...props
 }: ButtonProps) {
   return (
@@ -22,6 +25,7 @@ export function Button({
       activeOpacity={0.7}
       {...props}
     >
+      {Icon && <Icon color={theme.white} size={18} />}
       <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>
   );
@@ -29,8 +33,10 @@ export function Button({
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: 8,
 
     minHeight: 48,
     borderRadius: 6,
@@ -38,11 +44,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   text: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-
     color: theme.white,
     fontWeight: "500",
   },

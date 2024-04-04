@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { DriveThruIllustration } from "@/assets";
 import { Button, Header, Title } from "@/components";
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 export function WelcomeScreen() {
   return (
@@ -42,8 +42,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.zinc[400],
+
     fontSize: 18,
     textAlign: "center",
+    fontFamily: fontFamily.regular,
   },
   gapContainer: {
     gap: 12,

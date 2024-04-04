@@ -3,5 +3,7 @@ export * from "./Button";
 export * from "./Header";
 export * from "./Input";
 export * from "./Link";
+export * from "./OrderCard";
+export * from "./StatusCircle";
 export * from "./Terms";
 export * from "./Title";

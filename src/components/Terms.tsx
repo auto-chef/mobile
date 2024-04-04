@@ -1,6 +1,6 @@
 import { StyleSheet, Text } from "react-native";
 
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 export function Terms() {
   return (
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     color: theme.zinc[500],
     textAlign: "center",
     marginTop: "auto",
+    fontFamily: fontFamily.regular,
   },
   link: {
     textDecorationLine: "underline",

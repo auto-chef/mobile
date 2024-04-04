@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 interface LinkProps {
   onPress?: () => void;
@@ -25,5 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textDecorationLine: "underline",
     fontWeight: "500",
+
+    fontFamily: fontFamily.regular,
   },
 });

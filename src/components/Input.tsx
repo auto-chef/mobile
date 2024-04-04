@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 interface InputProps extends TextInputProps {}
 
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.zinc[900],
     borderColor: theme.zinc[800],
     color: theme.zinc[100],
+
+    fontFamily: fontFamily.regular,
   },
   visibilityButton: {
     position: "absolute",

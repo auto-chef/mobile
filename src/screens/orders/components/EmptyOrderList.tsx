@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { EmptyCartIllustration } from "@/assets";
 import { Button } from "@/components";
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 export function EmptyOrderList() {
   return (
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
 
     fontSize: 18,
     textAlign: "center",
+    fontFamily: fontFamily.regular
   },
 });

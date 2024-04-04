@@ -5,7 +5,7 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 import { LucideIcon } from "lucide-react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.white,
-    fontWeight: "500",
+    fontFamily: fontFamily.medium,
   },
   primary: {
     backgroundColor: theme.primary[500],

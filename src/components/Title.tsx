@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextProps } from "react-native";
 
-import { theme } from "@/styles";
+import { fontFamily, theme } from "@/styles";
 
 interface TitleProps extends TextProps {}
 
@@ -15,7 +15,8 @@ export function Title({ children, style, ...props }: TitleProps) {
 const styles = StyleSheet.create({
   title: {
     fontSize: 32,
-    fontWeight: "500",
     color: theme.zinc[50],
+
+    fontFamily: fontFamily.medium,
   },
 });

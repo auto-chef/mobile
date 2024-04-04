@@ -31,6 +31,12 @@ export const theme = {
   },
 };
 
+export const fontFamily = {
+  regular: "text_regular",
+  medium: "text_medium",
+  bold: "text_bold",
+};
+
 export const statusColors: Record<OrderStatus, string> = {
   PENDING: theme.zinc[500],
   ACCEPTED: theme.amber[500],

@@ -1,12 +1,12 @@
 import { StatusBar, StyleSheet, View } from "react-native";
 
-import { RecoverPasswordScreen } from "@/screens";
+import { HomeScreen } from "@/screens";
 import { theme } from "@/styles";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <RecoverPasswordScreen />
+      <HomeScreen />
     </View>
   );
 }

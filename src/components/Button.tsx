@@ -17,11 +17,12 @@ export function Button({
   children,
   variant = "primary",
   icon: Icon,
+  style,
   ...props
 }: ButtonProps) {
   return (
     <TouchableOpacity
-      style={[styles.button, styles[variant]]}
+      style={[styles.button, styles[variant], style]}
       activeOpacity={0.7}
       {...props}
     >

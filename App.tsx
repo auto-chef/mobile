@@ -4,24 +4,38 @@ import {
   Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar, StyleSheet, View } from "react-native";
 
 import { HomeScreen } from "@/screens";
 import { theme } from "@/styles";
+import { useCallback } from "react";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  let [fontsLoaded, fontError] = useFonts({
     text_regular: Poppins_400Regular,
     text_medium: Poppins_500Medium,
     text_bold: Poppins_700Bold,
   });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <HomeScreen />
     </View>
   );

@@ -7,7 +7,7 @@ export function SignUpScreen() {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.content}>
           <AuthTitle title="Cadastre sua conta" />
           <Input placeholder="Nome" />

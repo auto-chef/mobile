@@ -4,6 +4,7 @@ export * from "./ChefIAButton";
 export * from "./Header";
 export * from "./Input";
 export * from "./Link";
+export * from "./Map";
 export * from "./OrderCard";
 export * from "./StatusCircle";
 export * from "./Terms";

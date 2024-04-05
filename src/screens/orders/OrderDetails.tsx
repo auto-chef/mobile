@@ -1,4 +1,4 @@
-import { BackButton, OrderCard } from "@/components";
+import { BackButton, Map, OrderCard } from "@/components";
 import { OrderModel } from "@/models";
 import { useRoute } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
@@ -12,6 +12,12 @@ export function OrderDetailsScreen() {
       <View style={styles.detailsCard}>
         <OrderCard order={order} style={{ width: "100%" }} />
       </View>
+      <Map
+        origin={{
+          lat: -23.55318,
+          lng: -46.689357,
+        }}
+      />
     </View>
   );
 }
@@ -25,6 +31,7 @@ const styles = StyleSheet.create({
 
     left: 24,
     top: 24,
+    zIndex: 50,
   },
   detailsCard: {
     position: "absolute",
@@ -33,5 +40,6 @@ const styles = StyleSheet.create({
 
     width: "100%",
     padding: 24,
+    zIndex: 50,
   },
 });

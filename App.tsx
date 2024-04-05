@@ -7,6 +7,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar, StyleSheet, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Header } from "@/components";
 import { StackNavigator } from "@/screens";
@@ -37,7 +38,7 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <GestureHandlerRootView style={styles.container} onLayout={onLayoutRootView}>
       <Header />
       <NavigationContainer
         theme={{
@@ -54,7 +55,7 @@ export default function App() {
       >
         <StackNavigator />
       </NavigationContainer>
-    </View>
+    </GestureHandlerRootView>
   );
 }
 

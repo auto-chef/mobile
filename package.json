@@ -18,6 +18,7 @@
     "expo-speech": "~11.7.0",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
+    "lottie-react-native": "6.5.1",
     "lucide-react-native": "^0.364.0",
     "react": "18.2.0",
     "react-native": "0.73.6",

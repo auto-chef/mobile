@@ -1,12 +1,27 @@
-import { ChefIATalk } from "@/assets/ChefIATalk";
-import { Title } from "@/components";
-import { theme } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
-import { Dimensions, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import * as Speech from "expo-speech";
+import { Dimensions, TouchableOpacity, View } from "react-native";
+
+import { ChefIATalk } from "@/assets/ChefIATalk";
+import { Button, Title } from "@/components";
+import { theme } from "@/styles";
+import { useEffect } from "react";
+import { useTextToSpeech } from "@/hooks";
 
 export function ChefIAModal() {
   const { goBack } = useNavigation();
+  const { startSpeak, stopSpeak, isSpeaking  } = useTextToSpeech();
+
+  useEffect(() => {
+    startSpeak(
+      "Certo! Vamos confirmar seu pedido no Méqui Donalds Av. Paulista. O que você gostaria de pedir?"
+    );
+  }, []);
+
+  function onClose() {
+    stopSpeak();
+    goBack();
+  }
 
   return (
     <View
@@ -20,7 +35,7 @@ export function ChefIAModal() {
           width: Dimensions.get("window").width,
           height: Dimensions.get("window").height,
         }}
-        onPress={goBack}
+        onPress={onClose}
       >
         <View />
       </TouchableOpacity>
@@ -44,7 +59,7 @@ export function ChefIAModal() {
         <Title style={{ textAlign: "center" }}>
           Como posso atender sua fome hoje?
         </Title>
-        <ChefIATalk />
+        <ChefIATalk status={isSpeaking ? "SPEAKING" : "LISTENING"} />
       </View>
     </View>
   );

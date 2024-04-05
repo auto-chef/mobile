@@ -32,6 +32,9 @@ dependencies:
   expo-status-bar:
     specifier: ~1.11.1
     version: 1.11.1
+  lottie-react-native:
+    specifier: 6.5.1
+    version: 6.5.1(react-native@0.73.6)(react@18.2.0)
   lucide-react-native:
     specifier: ^0.364.0
     version: 0.364.0(react-native-svg@14.1.0)(react-native@0.73.6)(react@18.2.0)
@@ -4782,6 +4785,26 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
+    dev: false
+
+  /lottie-react-native@6.5.1(react-native@0.73.6)(react@18.2.0):
+    resolution: {integrity: sha512-pjih71P6qX6Ax5ucUBA+YJO7+fnveI581Bd8LmYeARm3spq3AnoGzEkrWaieM8odnK6WI4d5dwEJsxge/QjFPw==}
+    peerDependencies:
+      '@dotlottie/react-player': ^1.6.1
+      '@lottiefiles/react-lottie-player': ^3.5.3
+      react: '*'
+      react-native: '>=0.46'
+      react-native-windows: '>=0.63.x'
+    peerDependenciesMeta:
+      '@dotlottie/react-player':
+        optional: true
+      '@lottiefiles/react-lottie-player':
+        optional: true
+      react-native-windows:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-native: 0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3)(react@18.2.0)
     dev: false
 
   /lru-cache@5.1.1:

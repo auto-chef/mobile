@@ -10,12 +10,12 @@ import { useNavigation } from "@react-navigation/native";
 
 interface BackButtonProps extends TouchableOpacityProps {}
 
-export function BackButton({ ...props }: BackButtonProps) {
+export function BackButton({ style, ...props }: BackButtonProps) {
   const { goBack } = useNavigation();
 
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={[styles.button, style]}
       activeOpacity={0.7}
       onPress={goBack}
       {...props}

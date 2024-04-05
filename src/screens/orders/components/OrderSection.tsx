@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { OrderCard, StatusCircle } from "@/components";
 import { statusData } from "@/helpers";
 import { OrderModel, OrderStatus } from "@/models";
 import { theme } from "@/styles";
+import { useNavigation } from "@react-navigation/native";
 
 interface OrderSectionProps {
   status: OrderStatus;
 }
 
 export function OrderSection({ status }: OrderSectionProps) {
+  const { navigate } = useNavigation();
+
   const [orderList, setOrderList] = useState<OrderModel[]>(
     Array.from({ length: 5 }, (_, index) => ({
       id: "2452" + index,
@@ -44,7 +53,14 @@ export function OrderSection({ status }: OrderSectionProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={orderList}
-        renderItem={({ item }) => <OrderCard key={item.id} order={item} />}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigate("OrderDetails", item)}
+            key={`${status}-${item.id}`}
+          >
+            <OrderCard order={item} />
+          </TouchableOpacity>
+        )}
         ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
         contentContainerStyle={{ paddingHorizontal: 24 }}
       />

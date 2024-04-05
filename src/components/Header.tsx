@@ -5,10 +5,10 @@ import { theme } from "@/styles";
 
 export function Header() {
   // TODO: get user from context
-  /*const user = {
+  const user = {
     avatar_url: "https://github.com/diego3g.png",
-  };*/
-  const user = null;
+  }
+  // const user = null;
 
   return (
     <View style={[styles.header, user ? styles.logged : undefined]}>

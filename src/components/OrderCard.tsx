@@ -6,20 +6,26 @@ import {
   StyleSheet,
   Text,
   View,
+  ViewProps,
 } from "react-native";
 
 import { OrderModel } from "@/models";
 import { fontFamily, theme } from "@/styles";
 import { StatusCircle } from "./StatusCircle";
 
-interface OrderCardProps {
+interface OrderCardProps extends ViewProps {
   order: OrderModel;
   showStatus?: boolean;
 }
 
-export function OrderCard({ order, showStatus }: OrderCardProps) {
+export function OrderCard({
+  order,
+  showStatus,
+  style,
+  ...props
+}: OrderCardProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]} {...props}>
       <ImageBackground
         style={styles.restaurantContainer}
         source={{ uri: order.restaurant.background_url }}

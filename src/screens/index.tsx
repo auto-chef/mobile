@@ -6,7 +6,7 @@ import {
   WelcomeScreen,
 } from "./auth";
 import { ChefIAModal } from "./modals";
-import { HomeScreen } from "./orders";
+import { HomeScreen, OrderDetailsScreen } from "./orders";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +27,7 @@ export function StackNavigator() {
           component={RecoverPasswordScreen}
         />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
         <Stack.Screen

@@ -17,6 +17,15 @@ export function OrderDetailsScreen() {
           lat: -23.55318,
           lng: -46.689357,
         }}
+        destination={{
+          lat: -23.560374596692007,
+          lng: -46.65802922459958,
+        }}
+        restaurant={{
+          name: "Divino Fogão Shopping Cidade São Paulo",
+          image_url:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqJ_cPwc-c4UJfLzTi1SaHWq_4zwDdEkGyZ2zmzdcCDw&s",
+        }}
       />
     </View>
   );

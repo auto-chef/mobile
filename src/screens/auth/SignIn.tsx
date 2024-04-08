@@ -13,7 +13,16 @@ export function SignInScreen({ navigation }) {
         <Link onPress={() => navigation.navigate("RecoverPassword")}>
           Esqueci minha senha
         </Link>
-        <Button>Login</Button>
+        <Button
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            });
+          }}
+        >
+          Login
+        </Button>
         <Button
           variant="secondary"
           onPress={() => {

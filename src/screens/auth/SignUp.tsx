@@ -13,7 +13,16 @@ export function SignUpScreen({ navigation }) {
         <Input placeholder="Data de nascimento" />
         <Input placeholder="E-mail" keyboardType="email-address" />
         <Input placeholder="Senha" secureTextEntry />
-        <Button>Cadastrar</Button>
+        <Button
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            });
+          }}
+        >
+          Cadastrar
+        </Button>
         <Button
           variant="secondary"
           onPress={() => {

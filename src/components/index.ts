@@ -1,6 +1,7 @@
 export * from "./BackButton";
 export * from "./Button";
 export * from "./ChefIAButton";
+export * from "./ConfirmationModal";
 export * from "./Header";
 export * from "./Input";
 export * from "./Link";

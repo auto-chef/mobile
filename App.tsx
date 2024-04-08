@@ -38,8 +38,10 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={styles.container} onLayout={onLayoutRootView}>
-      <Header />
+    <GestureHandlerRootView
+      style={styles.container}
+      onLayout={onLayoutRootView}
+    >
       <NavigationContainer
         theme={{
           dark: true,
@@ -53,6 +55,7 @@ export default function App() {
           },
         }}
       >
+        <Header />
         <StackNavigator />
       </NavigationContainer>
     </GestureHandlerRootView>

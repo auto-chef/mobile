@@ -5,7 +5,7 @@ import {
   SignUpScreen,
   WelcomeScreen,
 } from "./auth";
-import { ChefIAModal } from "./modals";
+import { ChefIAModal, SignOutModal } from "./modals";
 import { HomeScreen, OrderDetailsScreen } from "./orders";
 
 const Stack = createNativeStackNavigator();
@@ -32,8 +32,13 @@ export function StackNavigator() {
       <Stack.Group screenOptions={{ presentation: "transparentModal" }}>
         <Stack.Screen
           name="ChefIAModal"
-          options={{ animation: "slide_from_bottom" }}
+          options={{ animation: "fade_from_bottom" }}
           component={ChefIAModal}
+        />
+        <Stack.Screen
+          name="SignOutModal"
+          options={{ animation: "fade_from_bottom" }}
+          component={SignOutModal}
         />
       </Stack.Group>
     </Stack.Navigator>

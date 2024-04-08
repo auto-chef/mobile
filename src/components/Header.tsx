@@ -2,19 +2,26 @@ import { Image, StyleSheet, View } from "react-native";
 
 import { AutoChefLogo } from "@/assets";
 import { theme } from "@/styles";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export function Header() {
+  const { navigate } = useNavigation();
+
   // TODO: get user from context
   const user = {
     avatar_url: "https://github.com/diego3g.png",
-  }
+  };
   // const user = null;
 
   return (
     <View style={[styles.header, user ? styles.logged : undefined]}>
       <AutoChefLogo />
+
       {user ? (
-        <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
+        <TouchableOpacity onPress={() => navigate("SignOutModal")}>
+          <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
+        </TouchableOpacity>
       ) : null}
     </View>
   );

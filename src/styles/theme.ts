@@ -28,6 +28,7 @@ export const theme = {
   },
   red: {
     500: "#EF4444",
+    600: "#dc2626",
   },
 };
 

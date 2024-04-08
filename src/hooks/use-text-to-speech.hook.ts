@@ -4,7 +4,7 @@ import { useState } from "react";
 export function useTextToSpeech() {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  function startSpeak(text: string) {
+  function startSpeak(text: string, onDone?: () => void) {
     if (Speech.isSpeakingAsync()) Speech.stop();
 
     Speech.speak(text, {
@@ -13,7 +13,10 @@ export function useTextToSpeech() {
       pitch: 0.9,
       rate: 1.25,
       onStart: () => setIsSpeaking(true),
-      onDone: () => setIsSpeaking(false),
+      onDone: () => {
+        setIsSpeaking(false);
+        onDone?.();
+      },
     });
   }
 

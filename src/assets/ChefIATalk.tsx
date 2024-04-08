@@ -1,21 +1,21 @@
-import { theme } from "@/styles";
 import LottieView from "lottie-react-native";
 import { useRef } from "react";
-import { ActivityIndicator, Dimensions, Text, View } from "react-native";
+import { ActivityIndicator, Dimensions, View } from "react-native";
+
+import { Button } from "@/components";
+import { PromptStatus } from "@/hooks";
+import { theme } from "@/styles";
 
 interface ChefIATalkProps {
-  status: "SPEAKING" | "LISTENING" | "THINKING";
+  status: PromptStatus;
+  onRecognitionComplete: () => void;
 }
 
-export function ChefIATalk({ status }: ChefIATalkProps) {
+export function ChefIATalk({ status, onRecognitionComplete }: ChefIATalkProps) {
   const animation = useRef<LottieView>(null);
 
   if (status === "LISTENING") {
-    return (
-      <Text style={{ height: 50, color: theme.zinc[100] }}>
-        Estou ouvindo...
-      </Text>
-    );
+    return <Button onPress={onRecognitionComplete}>Next</Button>;
   }
 
   if (status === "THINKING") {

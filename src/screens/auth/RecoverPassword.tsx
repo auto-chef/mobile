@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Button, Input, Terms } from "@/components";
+import { toast } from "@/helpers";
 import { useForm } from "@/hooks";
 import { AuthTitle } from "./components";
 import {
@@ -22,6 +23,12 @@ export function RecoverPasswordScreen({ navigation }) {
     navigation.reset({
       index: 0,
       routes: [{ name: "SignIn" }],
+    });
+
+    toast({
+      type: "success",
+      text1: "E-mail de recuperação enviado",
+      text2: "Verifique sua caixa de entrada",
     });
   }
 

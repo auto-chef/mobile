@@ -6,13 +6,15 @@ import {
 } from "@expo-google-fonts/poppins";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { useCallback } from "react";
+import { StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toaster, { BaseToast } from "react-native-toast-message";
 
 import { Header } from "@/components";
+import { baseToastStyles } from "@/helpers";
 import { StackNavigator } from "@/screens";
 import { theme } from "@/styles";
-import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,6 +60,32 @@ export default function App() {
         <Header />
         <StackNavigator />
       </NavigationContainer>
+      <Toaster
+        position="top"
+        config={{
+          success: (props) => (
+            <BaseToast
+              {...props}
+              {...baseToastStyles}
+              style={{ borderColor: theme.green[500] }}
+            />
+          ),
+          error: (props) => (
+            <BaseToast
+              {...props}
+              {...baseToastStyles}
+              style={{ borderColor: theme.red[500] }}
+            />
+          ),
+          info: (props) => (
+            <BaseToast
+              {...props}
+              {...baseToastStyles}
+              style={{ borderColor: theme.primary[500] }}
+            />
+          ),
+        }}
+      />
     </GestureHandlerRootView>
   );
 }

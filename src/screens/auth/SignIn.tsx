@@ -1,28 +1,48 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Button, Input, Link, Terms } from "@/components";
+import { useForm } from "@/hooks";
 import { AuthTitle } from "./components";
+import { SignInSchema, signInSchema } from "./validators";
 
 export function SignInScreen({ navigation }) {
+  const { handleSubmit, register } = useForm<SignInSchema>({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: signInSchema,
+  });
+
+  function onSubmit(data: SignInSchema) {
+    console.log(data);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
+  }
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles.content}>
         <AuthTitle title="Entre em sua conta" />
-        <Input placeholder="E-mail" keyboardType="email-address" />
-        <Input placeholder="Senha" secureTextEntry />
+        <Input
+          placeholder="E-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoFocus
+          {...register("email")}
+        />
+        <Input
+          placeholder="Senha"
+          secureTextEntry
+          autoCapitalize="none"
+          {...register("password")}
+        />
         <Link onPress={() => navigation.navigate("RecoverPassword")}>
           Esqueci minha senha
         </Link>
-        <Button
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "Home" }],
-            });
-          }}
-        >
-          Login
-        </Button>
+        <Button onPress={handleSubmit(onSubmit)}>Login</Button>
         <Button
           variant="secondary"
           onPress={() => {

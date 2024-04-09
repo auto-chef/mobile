@@ -2,6 +2,7 @@ import { EyeIcon, EyeOffIcon } from "lucide-react-native";
 import { useState } from "react";
 import {
   StyleSheet,
+  Text,
   TextInput,
   TextInputProps,
   TouchableOpacity,
@@ -10,9 +11,11 @@ import {
 
 import { fontFamily, theme } from "@/styles";
 
-interface InputProps extends TextInputProps {}
+interface InputProps extends TextInputProps {
+  error?: string;
+}
 
-export function Input({ secureTextEntry, ...props }: InputProps) {
+export function Input({ error, secureTextEntry, ...props }: InputProps) {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
   const SecureIcon = isSecure ? EyeOffIcon : EyeIcon;
 
@@ -37,6 +40,7 @@ export function Input({ secureTextEntry, ...props }: InputProps) {
           />
         </TouchableOpacity>
       )}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
@@ -68,4 +72,9 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
   },
+  error: {
+    color: theme.red[500],
+    marginTop: 2,
+    fontSize: 12
+  }
 });

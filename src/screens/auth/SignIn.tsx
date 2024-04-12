@@ -31,12 +31,14 @@ export function SignInScreen({ navigation }) {
           keyboardType="email-address"
           autoCapitalize="none"
           autoFocus
+          autoComplete="email"
           {...register("email")}
         />
         <Input
           placeholder="Senha"
           secureTextEntry
           autoCapitalize="none"
+          autoComplete="password"
           {...register("password")}
         />
         <Link onPress={() => navigation.navigate("RecoverPassword")}>

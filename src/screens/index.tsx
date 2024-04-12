@@ -16,7 +16,7 @@ export function StackNavigator() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Home"
+      initialRouteName="Welcome"
     >
       <Stack.Group>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />

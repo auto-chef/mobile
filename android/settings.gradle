@@ -1,4 +1,4 @@
-rootProject.name = 'autochef'
+rootProject.name = 'AutoChef'
 
 dependencyResolutionManagement {
   versionCatalogs {

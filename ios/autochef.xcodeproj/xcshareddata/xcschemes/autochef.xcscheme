@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "autochef.app"
-               BlueprintName = "autochef"
-               ReferencedContainer = "container:autochef.xcodeproj">
+               BuildableName = "AutoChef.app"
+               BlueprintName = "AutoChef"
+               ReferencedContainer = "container:AutoChef.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "autochefTests.xctest"
-               BlueprintName = "autochefTests"
-               ReferencedContainer = "container:autochef.xcodeproj">
+               BuildableName = "AutoChefTests.xctest"
+               BlueprintName = "AutoChefTests"
+               ReferencedContainer = "container:AutoChef.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "autochef.app"
-            BlueprintName = "autochef"
-            ReferencedContainer = "container:autochef.xcodeproj">
+            BuildableName = "AutoChef.app"
+            BlueprintName = "AutoChef"
+            ReferencedContainer = "container:AutoChef.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "autochef.app"
-            BlueprintName = "autochef"
-            ReferencedContainer = "container:autochef.xcodeproj">
+            BuildableName = "AutoChef.app"
+            BlueprintName = "AutoChef"
+            ReferencedContainer = "container:AutoChef.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

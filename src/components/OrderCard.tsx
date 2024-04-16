@@ -59,7 +59,7 @@ export function OrderCard({
         <Text style={styles.price}>R$ {order.price}</Text>
         <View>
           {order.items.map(({ name, amount, extras }) => (
-            <View>
+            <View key={`item-${amount}-${name}`}>
               <Text style={styles.text} key={`item-${amount}-${name}`}>
                 • {amount}x {name}
               </Text>

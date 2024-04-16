@@ -4,9 +4,9 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { theme } from "@/styles";
-import { useNavigation } from "@react-navigation/native";
 
 interface BackButtonProps extends TouchableOpacityProps {}
 

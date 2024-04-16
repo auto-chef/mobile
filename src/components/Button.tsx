@@ -4,9 +4,9 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
+import { LucideIcon } from "lucide-react-native";
 
 import { fontFamily, theme } from "@/styles";
-import { LucideIcon } from "lucide-react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
   variant?: "primary" | "secondary";

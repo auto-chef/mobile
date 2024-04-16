@@ -1,7 +1,9 @@
-import { Button, Title } from "@/components";
-import { theme } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+
+import { theme } from "@/styles";
+import { Button } from "./Button";
+import { Title } from "./Title";
 
 interface ConfirmationModalProps {
   text: string;

@@ -44,6 +44,7 @@ export default function App() {
       style={styles.container}
       onLayout={onLayoutRootView}
     >
+      <StatusBar translucent backgroundColor={theme.zinc[950]} />
       <NavigationContainer
         theme={{
           dark: true,

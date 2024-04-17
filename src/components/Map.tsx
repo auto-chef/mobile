@@ -6,7 +6,7 @@ import { Image, StyleSheet } from "react-native";
 import MapView, { Marker, PanDragEvent } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
-import { GOOGLE_MAPS_API_KEY } from '@env';
+import { GOOGLE_MAPS_API_KEY } from "@env";
 
 interface MapProps {
   origin?: {
@@ -70,8 +70,8 @@ export function Map({ origin, destination, restaurant }: MapProps) {
       customMapStyle={mapStyle}
       style={styles.map}
       initialRegion={{
-        latitude: origin.lat,
-        longitude: origin.lng,
+        latitude: origin?.lat || destination?.lat,
+        longitude: origin?.lng || destination?.lng,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
       }}
@@ -94,6 +94,9 @@ export function Map({ origin, destination, restaurant }: MapProps) {
           apikey={GOOGLE_MAPS_API_KEY}
           strokeWidth={5}
           strokeColor={theme.primary[500]}
+          language="pt-BR"
+          mode="DRIVING"
+          optimizeWaypoints
         />
       )}
       {origin && (

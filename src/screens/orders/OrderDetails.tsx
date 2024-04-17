@@ -1,10 +1,17 @@
 import { BackButton, Map, OrderCard } from "@/components";
+import { useLocation } from "@/hooks";
 import { OrderModel } from "@/models";
 import { useRoute } from "@react-navigation/native";
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 export function OrderDetailsScreen() {
   const { params: order } = useRoute() as { params: OrderModel };
+  const { location, requestLocationPermissions } = useLocation();
+
+  useEffect(() => {
+    requestLocationPermissions();
+  }, []);
 
   return (
     <View style={styles.content}>
@@ -13,10 +20,14 @@ export function OrderDetailsScreen() {
         <OrderCard order={order} style={{ width: "100%" }} />
       </View>
       <Map
-        origin={{
-          lat: -23.55318,
-          lng: -46.689357,
-        }}
+        origin={
+          location
+            ? {
+                lat: location.coords.latitude,
+                lng: location.coords.longitude,
+              }
+            : undefined
+        }
         destination={{
           lat: -23.560374596692007,
           lng: -46.65802922459958,

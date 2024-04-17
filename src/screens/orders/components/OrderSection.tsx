@@ -55,7 +55,12 @@ export function OrderSection({ status }: OrderSectionProps) {
         data={orderList}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigate("OrderDetails", item)}
+            onPress={() =>
+              navigate(
+                status === "ACCEPTED" ? "OrderMap" : "OrderDetails",
+                item
+              )
+            }
             key={`${status}-${item.id}`}
           >
             <OrderCard order={item} />

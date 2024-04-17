@@ -1,65 +1,90 @@
-import { BackButton, Map, OrderCard } from "@/components";
-import { useLocation } from "@/hooks";
+import { BackButton } from "@/components";
 import { OrderModel } from "@/models";
+import { fontFamily, theme } from "@/styles";
 import { useRoute } from "@react-navigation/native";
-import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { MapPinIcon } from "lucide-react-native";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { OrderItems, OrderTable } from "./components";
 
 export function OrderDetailsScreen() {
   const { params: order } = useRoute() as { params: OrderModel };
-  const { location, requestLocationPermissions } = useLocation();
-
-  useEffect(() => {
-    requestLocationPermissions();
-  }, []);
 
   return (
-    <View style={styles.content}>
-      <BackButton style={styles.backButton} />
-      <View style={styles.detailsCard}>
-        <OrderCard order={order} style={{ width: "100%" }} />
+    <ScrollView>
+      <ImageBackground
+        style={styles.restaurantContainer}
+        source={{ uri: order.restaurant.background_url }}
+        imageStyle={{ opacity: 0.2 }}
+      >
+        <BackButton />
+        <View style={styles.headerContent}>
+          <View style={styles.orderName}>
+            <Image
+              style={styles.restaurantLogo}
+              source={{ uri: order.restaurant.image_url }}
+            />
+            <Text style={styles.title} numberOfLines={1}>
+              Pedido #{order.id}
+            </Text>
+          </View>
+          <Text style={styles.restaurantName} numberOfLines={1}>
+            <MapPinIcon color={theme.zinc[300]} size={14} />{" "}
+            {order.restaurant.name}
+          </Text>
+        </View>
+      </ImageBackground>
+      <View>
+        <OrderTable />
+        <OrderItems />
       </View>
-      <Map
-        origin={
-          location
-            ? {
-                lat: location.coords.latitude,
-                lng: location.coords.longitude,
-              }
-            : undefined
-        }
-        destination={{
-          lat: -23.560374596692007,
-          lng: -46.65802922459958,
-        }}
-        restaurant={{
-          name: "Divino Fogão Shopping Cidade São Paulo",
-          image_url:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqJ_cPwc-c4UJfLzTi1SaHWq_4zwDdEkGyZ2zmzdcCDw&s",
-        }}
-      />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-  },
-  backButton: {
-    position: "absolute",
+  restaurantContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
 
-    left: 24,
-    top: 24,
-    zIndex: 50,
-  },
-  detailsCard: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1.5,
 
-    width: "100%",
-    padding: 24,
-    zIndex: 50,
+    borderColor: theme.zinc[600],
+  },
+  headerContent: {
+    gap: 4,
+  },
+  title: {
+    color: theme.zinc[50],
+
+    fontFamily: fontFamily.medium,
+    fontSize: 24,
+  },
+  orderName: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  restaurantLogo: {
+    width: 24,
+    height: 24,
+    borderRadius: 4,
+  },
+  restaurantName: {
+    alignItems: "center",
+
+    color: theme.zinc[300],
+
+    fontFamily: fontFamily.regular,
+    fontSize: 14,
   },
 });

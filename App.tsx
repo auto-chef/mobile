@@ -13,6 +13,7 @@ import Toaster, { BaseToast } from "react-native-toast-message";
 
 import { Header } from "@/components";
 import { baseToastStyles } from "@/helpers";
+import { AuthProvider } from "@/providers";
 import { StackNavigator } from "@/screens";
 import { theme } from "@/styles";
 
@@ -58,8 +59,10 @@ export default function App() {
           },
         }}
       >
-        <Header />
-        <StackNavigator />
+        <AuthProvider>
+          <Header />
+          <StackNavigator />
+        </AuthProvider>
       </NavigationContainer>
       <Toaster
         position="top"

@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View } from "react-native";
 
 import { AutoChefLogo } from "@/assets";
+import { useAuth } from "@/hooks";
 import { theme } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -8,11 +9,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 export function Header() {
   const { navigate } = useNavigation();
 
-  // TODO: get user from context
-  const user = {
-    avatar_url: "https://github.com/diego3g.png",
-  };
-  // const user = null;
+  const { user } = useAuth();
 
   return (
     <View style={[styles.header, user ? styles.logged : undefined]}>
@@ -20,7 +17,7 @@ export function Header() {
 
       {user ? (
         <TouchableOpacity onPress={() => navigate("SignOutModal")}>
-          <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
+          <Image source={{ uri: user.avatarUrl }} style={styles.avatar} />
         </TouchableOpacity>
       ) : null}
     </View>

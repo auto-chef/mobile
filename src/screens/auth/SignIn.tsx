@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Button, Input, Link, Terms } from "@/components";
-import { useForm } from "@/hooks";
+import { useAuth, useForm } from "@/hooks";
 import { AuthTitle } from "./components";
 import { SignInSchema, signInSchema } from "./validators";
 
 export function SignInScreen({ navigation }) {
+  const { signIn } = useAuth();
   const { handleSubmit, register } = useForm<SignInSchema>({
     initialValues: {
       email: "",
@@ -14,9 +15,9 @@ export function SignInScreen({ navigation }) {
     validationSchema: signInSchema,
   });
 
-  function onSubmit(data: SignInSchema) {
-    console.log(data);
-    navigation.reset({
+  async function onSubmit(data: SignInSchema) {
+    await signIn(data);
+    await navigation.reset({
       index: 0,
       routes: [{ name: "Home" }],
     });

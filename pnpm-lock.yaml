@@ -23,6 +23,9 @@ dependencies:
   expo-font:
     specifier: ^11.10.3
     version: 11.10.3(expo@50.0.15)
+  expo-location:
+    specifier: ~16.5.5
+    version: 16.5.5(expo@50.0.15)
   expo-speech:
     specifier: ^11.7.0
     version: 11.7.0(expo@50.0.15)
@@ -3932,6 +3935,14 @@ packages:
 
   /expo-keep-awake@12.8.2(expo@50.0.15):
     resolution: {integrity: sha512-uiQdGbSX24Pt8nGbnmBtrKq6xL/Tm3+DuDRGBk/3ZE/HlizzNosGRIufIMJ/4B4FRw4dw8KU81h2RLuTjbay6g==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 50.0.15(@babel/core@7.24.4)(@react-native/babel-preset@0.73.21)
+    dev: false
+
+  /expo-location@16.5.5(expo@50.0.15):
+    resolution: {integrity: sha512-dXEd1HaZgdi6yHVF8R+SMnGlKDYrD+Hkkzd/b9edjMSUBLxF2y824AFSSNUf6BVOM53tJBOFEELneXkU1uj9nA==}
     peerDependencies:
       expo: '*'
     dependencies:

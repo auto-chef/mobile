@@ -15,6 +15,7 @@
     "@react-navigation/native-stack": "^6.9.26",
     "expo": "~50.0.15",
     "expo-font": "^11.10.3",
+    "expo-location": "~16.5.5",
     "expo-speech": "^11.7.0",
     "expo-splash-screen": "^0.26.4",
     "expo-status-bar": "~1.11.1",

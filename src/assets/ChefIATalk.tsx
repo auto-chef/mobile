@@ -1,21 +1,41 @@
+import Voice from "@react-native-voice/voice";
 import LottieView from "lottie-react-native";
-import { useRef } from "react";
-import { ActivityIndicator, Dimensions, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 
-import { Button } from "@/components";
 import { PromptStatus } from "@/hooks";
 import { theme } from "@/styles";
 
 interface ChefIATalkProps {
   status: PromptStatus;
-  onRecognitionComplete: () => void;
+  onRecognitionComplete: (text: string) => void;
 }
 
 export function ChefIATalk({ status, onRecognitionComplete }: ChefIATalkProps) {
   const animation = useRef<LottieView>(null);
 
+  useEffect(() => {
+    Voice.onSpeechResults = (e) => {
+      onRecognitionComplete(e.value[0]);
+    };
+
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status === "LISTENING") {
+      Voice.start("pt-BR");
+    }
+  }, [status]);
+
   if (status === "LISTENING") {
-    return <Button onPress={onRecognitionComplete}>Next</Button>;
+    return (
+      <View>
+        <Text>Estou ouvindo você. Diga algo para continuar o pedido.</Text>
+      </View>
+    );
   }
 
   if (status === "THINKING") {

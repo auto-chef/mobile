@@ -9,6 +9,7 @@ import {
 
 import { OrderCard, StatusCircle } from "@/components";
 import { statusData } from "@/helpers";
+import { products, restaurants } from "@/mocks";
 import { OrderModel, OrderStatus } from "@/models";
 import { theme } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
@@ -21,26 +22,19 @@ export function OrderSection({ status }: OrderSectionProps) {
   const { navigate } = useNavigation();
 
   const [orderList, setOrderList] = useState<OrderModel[]>(
-    Array.from({ length: 5 }, (_, index) => ({
-      id: "2452" + index,
-      restaurant: {
-        name: "Divino Fogão Shopping Cidade São Paulo",
-        image_url:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqJ_cPwc-c4UJfLzTi1SaHWq_4zwDdEkGyZ2zmzdcCDw&s",
-        background_url:
-          "https://img.cybercook.com.br/imagens/receitas/340/file-de-frango-grelhado-2.jpeg",
-      },
-      price: 54.9,
-      items: [
-        {
-          name: "Frango ao molho",
-          amount: 1,
-          extras: [{ amount: 1, name: "Tomate" }],
-        },
-        { name: "Prato Kids Parmegiana", amount: 2 },
-      ],
-      status,
-    }))
+    Array.from(
+      { length: status === "ACCEPTED" ? 1 : Math.floor(Math.random() * 5) + 2 },
+      (_, index) => ({
+        id: Math.floor(Math.random() * 100000).toString(),
+        restaurant: restaurants[Math.floor(Math.random() * restaurants.length)],
+        price: Math.floor(Math.random() * 100) + 10,
+        items: Array.from(
+          { length: Math.floor(Math.random() * 2) + 1 },
+          () => products[Math.floor(Math.random() * products.length)]
+        ),
+        status,
+      })
+    )
   );
 
   return (

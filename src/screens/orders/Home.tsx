@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { ChefIAButton } from "@/components";
-import { OrderSection } from "./components";
+import { OrderSection, RestaurantsList } from "./components";
 
 export function HomeScreen() {
   return (
@@ -13,6 +13,7 @@ export function HomeScreen() {
           paddingVertical: 24,
         }}
       >
+        <RestaurantsList />
         <OrderSection status="PENDING" />
         <OrderSection status="ACCEPTED" />
         <OrderSection status="DELIVERED" />

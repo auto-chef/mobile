@@ -1,3 +1,4 @@
+import { AppNavigation } from "@/app";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   RecoverPasswordScreen,
@@ -6,9 +7,9 @@ import {
   WelcomeScreen,
 } from "./auth";
 import { ChefIAModal, SignOutModal } from "./modals";
-import { HomeScreen, OrderDetailsScreen } from "./orders";
+import { HomeScreen, OrderDetailsScreen, OrderMapScreen } from "./orders";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<AppNavigation>();
 
 export function StackNavigator() {
   return (
@@ -27,6 +28,7 @@ export function StackNavigator() {
           component={RecoverPasswordScreen}
         />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="OrderMap" component={OrderMapScreen} />
         <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "transparentModal" }}>

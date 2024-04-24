@@ -56,7 +56,9 @@ export function OrderCard({
         </Text>
       </ImageBackground>
       <ScrollView style={styles.itemsContainer}>
-        <Text style={styles.price}>R$ {order.price}</Text>
+        <Text style={styles.price}>
+          R$ {order.price.toFixed(2).replace(".", ",")}
+        </Text>
         <View>
           {order.items.map(({ name, amount, extras }) => (
             <View key={`item-${amount}-${name}`}>
@@ -84,6 +86,8 @@ const styles = StyleSheet.create({
 
     backgroundColor: theme.zinc[950],
     borderColor: theme.zinc[800],
+
+    overflow: "hidden",
   },
   restaurantContainer: {
     padding: 16,

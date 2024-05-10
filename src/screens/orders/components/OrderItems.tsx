@@ -1,7 +1,12 @@
+import { OrderModel } from "@/models";
 import { fontFamily, theme } from "@/styles";
 import { StyleSheet, Text, View } from "react-native";
 
-export function OrderItems() {
+interface OrderItemsProps {
+  items: OrderModel["items"];
+}
+
+export function OrderItems({ items }: OrderItemsProps) {
   return (
     <View>
       <View style={styles.tableHeader}>
@@ -10,17 +15,29 @@ export function OrderItems() {
         <Text style={[styles.headerText, styles.priceCol]}>Preço</Text>
         <Text style={[styles.headerText, styles.priceCol]}>Subtotal</Text>
       </View>
-      <View style={styles.tr}>
-        <View style={[styles.productCol]}>
-          <Text>Big Mac</Text>
-          <View style={styles.extrasContainer}>
-            <Text style={styles.extra}>• 1x Picles</Text>
+      {items.map((item) => (
+        <View style={styles.tr}>
+          <View style={[styles.productCol]}>
+            <Text>
+              {item.amount}x {item.name}
+            </Text>
+            {item.extras.map((extra) => (
+              <View style={styles.extrasContainer}>
+                <Text style={styles.extra}>
+                  • {extra.amount}x {extra.name}
+                </Text>
+              </View>
+            ))}
           </View>
+          <Text style={styles.amountCol}>3</Text>
+          <Text style={styles.priceCol}>
+            R$ {item.price.toFixed(2).replace(".", ",")}
+          </Text>
+          <Text style={styles.priceCol}>
+            R$ {(item.price * item.amount).toFixed(2).replace(".", ",")}
+          </Text>
         </View>
-        <Text style={styles.amountCol}>3</Text>
-        <Text style={styles.priceCol}>R$ 27,90</Text>
-        <Text style={styles.priceCol}>R$ 83,70</Text>
-      </View>
+      ))}
     </View>
   );
 }

@@ -30,7 +30,7 @@ export function OrderSection({ status }: OrderSectionProps) {
         price: Math.floor(Math.random() * 100) + 10,
         items: Array.from(
           { length: Math.floor(Math.random() * 2) + 1 },
-          () => products[Math.floor(Math.random() * products.length)]
+          () => products[Math.floor(Math.random() * products.length)],
         ),
         status,
       })

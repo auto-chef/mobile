@@ -40,6 +40,7 @@ export const restaurants = [
       "https://tb-static.uber.com/prod/image-proc/processed_images/f57fb461cfafbbb63b57e8a50c81c5d0/c9252e6c6cd289c588c3381bc77b1dfc.jpeg",
   },
   {
+    id: 6,
     name: "Baked Potato",
     image_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTStptkIuwHsMd06QiorMg4SX2iMCSmpi4SQs2ppZ-xXg&s",
@@ -47,6 +48,7 @@ export const restaurants = [
       "https://www.foodandwine.com/thmb/WmSqUqk2hR42aez4_mff5veGjlY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/How-To-Bake-A-Potato-FT-BLOG0623-1b01215c4a2c4cf9bb26f395a738a20d.jpg",
   },
   {
+    id: 7,
     name: "China in Box",
     image_url:
       "https://play-lh.googleusercontent.com/Gx-HhjDjXhOjduDx2bFQqycE1IkW5QDD4hPH-P59WiFdTputym4xMWpH9UvFlu_YCX8",

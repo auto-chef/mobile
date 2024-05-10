@@ -42,7 +42,7 @@ export function OrderDetailsScreen() {
       </ImageBackground>
       <View>
         <OrderTable />
-        <OrderItems />
+        <OrderItems items={order.items} />
       </View>
     </ScrollView>
   );

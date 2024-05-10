@@ -5,6 +5,7 @@ export type OrderModel = {
   items: {
     name: string;
     amount: number;
+    price: number;
     extras?: {
       name: string;
       amount: number;

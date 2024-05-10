@@ -11,6 +11,10 @@ import { StatusBar, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Toaster, { BaseToast } from "react-native-toast-message";
 
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["new NativeEventEmitter"]);
+LogBox.ignoreAllLogs();
+
 import { Header } from "@/components";
 import { baseToastStyles } from "@/helpers";
 import { AuthProvider } from "@/providers";

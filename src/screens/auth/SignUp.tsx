@@ -2,10 +2,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { Button, Input, Terms } from "@/components";
-import { maskCPF } from "@/helpers";
+import { maskCPF, toast } from "@/helpers";
 import { useForm } from "@/hooks";
 import { useState } from "react";
 import { AuthTitle } from "./components";
+import { signInRequest } from "./requests";
 import { SignUpSchema, signUpSchema } from "./validators";
 
 export function SignUpScreen({ navigation }) {
@@ -22,13 +23,25 @@ export function SignUpScreen({ navigation }) {
       validationSchema: signUpSchema,
     });
 
-  function onSubmit(data: SignUpSchema) {
-    console.log(data);
+  async function onSubmit(data: SignUpSchema) {
+    try {
+      await signInRequest(data);
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Home" }],
-    });
+      toast({
+        type: "success",
+        text1: "Cadastro realizado com sucesso!",
+      });
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" }],
+      });
+    } catch (error) {
+      toast({
+        type: "error",
+        text1: error.message,
+      });
+    }
   }
 
   return (

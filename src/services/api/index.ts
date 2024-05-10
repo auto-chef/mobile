@@ -20,3 +20,5 @@ api.interceptors.response.use(
     }
   }
 );
+
+export const isApiError = axios.isAxiosError;

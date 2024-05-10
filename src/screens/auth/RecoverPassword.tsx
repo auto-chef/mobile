@@ -4,6 +4,7 @@ import { Button, Input, Terms } from "@/components";
 import { toast } from "@/helpers";
 import { useForm } from "@/hooks";
 import { AuthTitle } from "./components";
+import { recoverPasswordRequest } from "./requests";
 import {
   RecoverPasswordSchema,
   recoverPasswordSchema,
@@ -17,19 +18,26 @@ export function RecoverPasswordScreen({ navigation }) {
     validationSchema: recoverPasswordSchema,
   });
 
-  function onSubmit(data: RecoverPasswordSchema) {
-    console.log(data);
+  async function onSubmit(data: RecoverPasswordSchema) {
+    try {
+      await recoverPasswordRequest(data);
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "SignIn" }],
-    });
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      });
 
-    toast({
-      type: "success",
-      text1: "E-mail de recuperação enviado",
-      text2: "Verifique sua caixa de entrada",
-    });
+      toast({
+        type: "success",
+        text1: "E-mail de recuperação enviado",
+        text2: "Verifique sua caixa de entrada",
+      });
+    } catch (error) {
+      toast({
+        type: "error",
+        text1: error.message,
+      });
+    }
   }
 
   return (

@@ -18,6 +18,7 @@ export function ChefIATalk({ status, onRecognitionComplete }: ChefIATalkProps) {
     Voice.onSpeechResults = (e) => {
       onRecognitionComplete(e.value[0]);
     };
+    Voice.start("pt-BR");
 
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);

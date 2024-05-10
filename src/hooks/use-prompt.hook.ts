@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { GOOGLE_GEMINI_API_KEY } from "@env";
 import { useTextToSpeech } from "./use-text-to-speech.hook";
@@ -35,31 +35,10 @@ export function usePrompt({ onFinish }: UsePrompt) {
       agent: "user",
     },
   ]);
-  const [currentPromptStep, setCurrentPromptStep] = useState(0);
+  const [promptStatus, setPromptStatus] = useState<PromptStatus>("LISTENING");
 
   const { startSpeak, stopSpeak, isSpeaking } = useTextToSpeech();
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
-
-  const promptStatus: PromptStatus =
-    prompt[currentPromptStep]?.agent === "user"
-      ? "LISTENING"
-      : isSpeaking
-      ? "SPEAKING"
-      : "THINKING";
-
-  useEffect(() => {
-    const { text, agent } = prompt[currentPromptStep];
-
-    if (agent === "ai") {
-      startSpeak(text, () => {
-        if (currentPromptStep + 1 === prompt.length) {
-          return onFinish?.();
-        }
-
-        setCurrentPromptStep((prev) => prev + 1);
-      });
-    }
-  }, [currentPromptStep]);
 
   async function handleNextPrompt(message: string) {
     setPrompt((prompt) => [
@@ -71,20 +50,33 @@ export function usePrompt({ onFinish }: UsePrompt) {
       },
     ]);
 
-    const nextMessage = await getNextAIMessage(message);
+    setPromptStatus("THINKING");
+
+    let nextMessage = (await getNextAIMessage(message))
+      .replace("\n", "")
+      .trim();
+    const transcribedMessage = Object.keys(basicVoices).includes(nextMessage)
+      ? basicVoices[nextMessage]
+      : nextMessage;
+
+    setPromptStatus("SPEAKING");
 
     setPrompt((prompt) => [
       ...prompt,
       {
         id: String(prompt.length),
         agent: "ai",
-        text: Object.keys(basicVoices).includes(nextMessage)
-          ? basicVoices[nextMessage]
-          : nextMessage,
+        text: transcribedMessage,
       },
     ]);
 
-    setCurrentPromptStep((prev) => prev + 1);
+    if (transcribedMessage.startsWith("{")) {
+      return onFinish?.();
+    }
+
+    startSpeak(transcribedMessage, () => {
+      setPromptStatus("LISTENING");
+    });
   }
 
   async function getNextAIMessage(message: string) {
@@ -92,8 +84,6 @@ export function usePrompt({ onFinish }: UsePrompt) {
       const defaultMessagesList = Object.entries(basicVoices)
         .map(([name, value]) => `${name}: ${value}`)
         .join(", ");
-
-      console.log({ defaultMessagesList });
 
       const chat = model.startChat({
         history: [
@@ -122,20 +112,13 @@ export function usePrompt({ onFinish }: UsePrompt) {
         },
       });
 
-      console.log({ chat, message });
-
       const result = await chat.sendMessage(message);
-
-      console.log({ result });
-      console.log({ text: result.response.text() });
 
       return result.response.text();
     } catch (error) {
       console.log("Erro na transcrição!", error);
     }
   }
-
-  console.log(prompt);
 
   return {
     promptStatus,

@@ -1,5 +1,6 @@
 import { StatusCircle } from "@/components";
 import { statusData } from "@/helpers";
+import { useAuth } from "@/hooks";
 import { OrderModel } from "@/models";
 import { fontFamily, theme } from "@/styles";
 import { useRoute } from "@react-navigation/native";
@@ -7,6 +8,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export function OrderTable() {
   const { params: order } = useRoute() as { params: OrderModel };
+  const { user } = useAuth();
 
   return (
     <View>
@@ -19,15 +21,15 @@ export function OrderTable() {
       </View>
       <View style={styles.tr}>
         <Text style={styles.th}>Cliente</Text>
-        <Text style={styles.td}>Carlos Ferreira</Text>
+        <Text style={styles.td}>{user.name}</Text>
       </View>
       <View style={styles.tr}>
         <Text style={styles.th}>Telefone</Text>
-        <Text style={styles.td}>47817292893</Text>
+        <Text style={styles.td}>{user.phone}</Text>
       </View>
       <View style={styles.tr}>
         <Text style={styles.th}>E-mail</Text>
-        <Text style={styles.td}>carlos.ferreira@gmail.com</Text>
+        <Text style={styles.td}>{user.email}</Text>
       </View>
       <View style={styles.tr}>
         <Text style={styles.th}>Criado há</Text>

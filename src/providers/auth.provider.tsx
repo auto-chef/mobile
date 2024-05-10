@@ -15,9 +15,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signIn(data: SignInSchema) {
     setUser({
-      name: "Diego Fernandes",
+      name: "Erick Nathan",
       email: data.email,
-      avatarUrl: "https://github.com/diego3g.png",
+      avatarUrl: "https://github.com/ericknathan.png",
+      phone: "(11) 96119-7019"
     });
     return true;
   }

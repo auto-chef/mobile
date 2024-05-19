@@ -1,5 +1,6 @@
 import { theme } from "@/styles";
-import { StyleSheet, View } from "react-native";
+import { Skeleton as MotiSkeleton } from "moti/skeleton";
+import { StyleSheet } from "react-native";
 
 interface SkeletonProps {
   height: number;
@@ -7,7 +8,16 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ height, width }: SkeletonProps) {
-  return <View style={[styles.skeleton, { height, width }]} />;
+  return (
+    <MotiSkeleton
+      colorMode="dark"
+      transition={{ duration: 2000 }}
+      radius={8}
+      width={width}
+      height={height}
+      backgroundColor={theme.zinc[900]}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { Keyboard } from "react-native";
 import { z } from "zod";
 
 type UseFormProps<Schema> = {
@@ -21,6 +22,7 @@ export function useForm<Schema>({
       return async () => {
         try {
           setIsSubmitting(true);
+          Keyboard.dismiss();
           const data = validationSchema.parse(formData);
           await callback(data);
         } catch (error) {

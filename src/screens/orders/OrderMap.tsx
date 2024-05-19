@@ -1,12 +1,12 @@
 import { BackButton, Map, OrderCard } from "@/components";
 import { useLocation } from "@/hooks";
 import { OrderModel } from "@/models";
+import type { ScreenProps } from "@/navigation";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-export function OrderMapScreen() {
-  const { navigate } = useNavigation();
+export function OrderMapScreen({ navigation }: ScreenProps) {
   const { params: order } = useRoute() as { params: OrderModel };
   const { location, requestLocationPermissions } = useLocation();
 
@@ -20,7 +20,7 @@ export function OrderMapScreen() {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          navigate("OrderDetails", order);
+          navigation.navigate("OrderDetails", order);
         }}
         style={styles.detailsCard}
       >

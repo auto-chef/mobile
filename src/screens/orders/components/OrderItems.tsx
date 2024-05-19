@@ -15,8 +15,8 @@ export function OrderItems({ items }: OrderItemsProps) {
         <Text style={[styles.headerText, styles.priceCol]}>Preço</Text>
         <Text style={[styles.headerText, styles.priceCol]}>Subtotal</Text>
       </View>
-      {items.map((item) => (
-        <View style={styles.tr}>
+      {items.map((item, index) => (
+        <View style={styles.tr} key={`${item.name}-${index}`}>
           <View style={[styles.productCol]}>
             <Text>
               {item.amount}x {item.name}

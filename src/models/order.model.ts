@@ -17,6 +17,7 @@ export type OrderModel = {
 export type OrderStatus = "PENDING" | "ACCEPTED" | "REJECTED" | "DELIVERED";
 
 export type RestaurantModel = {
+  id: number;
   name: string;
   image_url: string;
   background_url: string;

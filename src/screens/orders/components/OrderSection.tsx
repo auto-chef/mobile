@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -7,12 +7,12 @@ import {
   View,
 } from "react-native";
 
-import { OrderCard, StatusCircle } from "@/components";
-import { statusData } from "@/helpers";
-import { products, restaurants } from "@/mocks";
+import { OrderCard, OrderCardSkeleton, StatusCircle } from "@/components";
+import { statusData, toast } from "@/helpers";
 import { OrderModel, OrderStatus } from "@/models";
 import { theme } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
+import { getOrdersRequest } from "../requests";
 
 interface OrderSectionProps {
   status: OrderStatus;
@@ -21,21 +21,24 @@ interface OrderSectionProps {
 export function OrderSection({ status }: OrderSectionProps) {
   const { navigate } = useNavigation();
 
-  const [orderList, setOrderList] = useState<OrderModel[]>(
-    Array.from(
-      { length: status === "ACCEPTED" ? 1 : Math.floor(Math.random() * 5) + 2 },
-      (_, index) => ({
-        id: Math.floor(Math.random() * 100000).toString(),
-        restaurant: restaurants[Math.floor(Math.random() * restaurants.length)],
-        price: Math.floor(Math.random() * 100) + 10,
-        items: Array.from(
-          { length: Math.floor(Math.random() * 2) + 1 },
-          () => products[Math.floor(Math.random() * products.length)],
-        ),
-        status,
-      })
-    )
-  );
+  const [orderList, setOrderList] = useState<OrderModel[]>([]);
+
+  useEffect(() => {
+    async function loadOrders() {
+      try {
+        const { data } = await getOrdersRequest(status);
+
+        setOrderList(data);
+      } catch (error) {
+        toast({
+          type: "error",
+          text1: "Não foi possível carregar os restaurantes.",
+        });
+      }
+    }
+
+    loadOrders();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -62,6 +65,13 @@ export function OrderSection({ status }: OrderSectionProps) {
         )}
         ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
         contentContainerStyle={{ paddingHorizontal: 24 }}
+        ListEmptyComponent={() => (
+          <View style={{ flexDirection: "row", gap: 16 }}>
+            <OrderCardSkeleton />
+            <OrderCardSkeleton />
+            <OrderCardSkeleton />
+          </View>
+        )}
       />
     </View>
   );

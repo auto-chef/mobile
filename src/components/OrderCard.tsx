@@ -11,6 +11,7 @@ import {
 
 import { OrderModel } from "@/models";
 import { fontFamily, theme } from "@/styles";
+import { Skeleton } from "./Skeleton";
 import { StatusCircle } from "./StatusCircle";
 
 interface OrderCardProps extends ViewProps {
@@ -76,6 +77,10 @@ export function OrderCard({
       </ScrollView>
     </View>
   );
+}
+
+export function OrderCardSkeleton() {
+  return <Skeleton width={256} height={242} />;
 }
 
 const styles = StyleSheet.create({

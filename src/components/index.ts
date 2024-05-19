@@ -7,6 +7,7 @@ export * from "./Input";
 export * from "./Link";
 export * from "./Map";
 export * from "./OrderCard";
+export * from "./Skeleton";
 export * from "./StatusCircle";
 export * from "./Terms";
 export * from "./Title";

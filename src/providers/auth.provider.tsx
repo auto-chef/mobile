@@ -1,4 +1,3 @@
-import { toast } from "@/helpers";
 import { UserModel } from "@/models";
 import { signInRequest } from "@/screens/auth/requests";
 import { SignInSchema } from "@/screens/auth/validators";
@@ -16,16 +15,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserModel>();
 
   async function signIn(data: SignInSchema) {
-    try {
-      const response = await signInRequest(data);
+    const response = await signInRequest(data);
 
-      setUser(response.data);
-    } catch (error) {
-      toast({
-        type: "error",
-        text1: error.message,
-      });
-    }
+    setUser(response?.data.user);
   }
 
   async function signOut() {

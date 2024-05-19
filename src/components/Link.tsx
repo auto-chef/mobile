@@ -1,16 +1,10 @@
-import { ReactNode } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, type TouchableOpacityProps } from "react-native";
 
 import { fontFamily, theme } from "@/styles";
 
-interface LinkProps {
-  onPress?: () => void;
-  children: ReactNode;
-}
-
-export function Link({ onPress, children }: LinkProps) {
+export function Link({ children, ...props }: TouchableOpacityProps) {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} {...props}>
       <Text style={styles.link}>{children}</Text>
     </TouchableOpacity>
   );

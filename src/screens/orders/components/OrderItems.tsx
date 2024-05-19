@@ -21,8 +21,8 @@ export function OrderItems({ items }: OrderItemsProps) {
             <Text>
               {item.amount}x {item.name}
             </Text>
-            {item.extras.map((extra) => (
-              <View style={styles.extrasContainer}>
+            {(item.extras || []).map((extra) => (
+              <View style={styles.extrasContainer} key={`${extra.name}-${extra.amount}`}>
                 <Text style={styles.extra}>
                   • {extra.amount}x {extra.name}
                 </Text>

@@ -1,4 +1,4 @@
-import { AppNavigation } from "@/app";
+import { AppNavigation } from "@/navigation";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   RecoverPasswordScreen,

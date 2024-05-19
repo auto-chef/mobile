@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { z } from "zod";
 
 type UseFormProps<Schema> = {
@@ -14,24 +14,30 @@ export function useForm<Schema>({
     {}
   );
   const [formData, setFormData] = useState<Schema>(initialValues);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(callback: (data: Schema) => void) {
-    return () => {
-      try {
-        const data = validationSchema.parse(formData);
-        return callback(data);
-      } catch (error) {
-        if (error.errors) {
-          setErrors(
-            error.errors.reduce((acc, curr) => {
-              acc[curr.path] = curr.message;
-              return acc;
-            }, {})
-          );
+  const handleSubmit = useCallback(
+    (callback: (data: Schema) => Promise<void> | void) => {
+      return async () => {
+        try {
+          setIsSubmitting(true);
+          const data = validationSchema.parse(formData);
+          await callback(data);
+        } catch (error) {
+          if (error.errors) {
+            setErrors(
+              error.errors.reduce((acc, curr) => {
+                acc[curr.path] = curr.message;
+                return acc;
+              }, {})
+            );
+          }
+        } finally {
+          setIsSubmitting(false);
         }
-      }
-    };
-  }
+      };
+    },
+    [formData, validationSchema]);
 
   function register(
     name: keyof Schema,
@@ -66,5 +72,6 @@ export function useForm<Schema>({
     errors,
     setValue,
     clearError,
+    isSubmitting,
   };
 }

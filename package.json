@@ -16,6 +16,7 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "axios": "^1.6.8",
+    "dayjs": "^1.11.11",
     "expo": "~50.0.15",
     "expo-font": "^11.10.3",
     "expo-location": "~16.5.5",

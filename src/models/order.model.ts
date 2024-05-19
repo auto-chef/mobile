@@ -12,6 +12,7 @@ export type OrderModel = {
     }[];
   }[];
   status: OrderStatus;
+  created_at: string;
 };
 
 export type OrderStatus = "PENDING" | "ACCEPTED" | "REJECTED" | "DELIVERED";

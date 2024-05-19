@@ -61,6 +61,10 @@ export function useForm<Schema>({
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
+  function getValue(name: keyof Schema) {
+    return formData[name];
+  }
+
   function clearError(name: keyof Schema) {
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   }
@@ -71,6 +75,7 @@ export function useForm<Schema>({
     register,
     errors,
     setValue,
+    getValue,
     clearError,
     isSubmitting,
   };

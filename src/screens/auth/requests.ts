@@ -9,7 +9,8 @@ import {
 
 export async function signInRequest(data: SignInSchema) {
   try {
-    return await api.post<UserModel>("/auth/signin", data);
+    const response = await api.post<{ user: UserModel }>("/auth/signin", data);
+    return response;
   } catch (error) {
     if (isApiError(error)) {
       if (error.response?.status === 401) {
@@ -23,7 +24,8 @@ export async function signInRequest(data: SignInSchema) {
 
 export async function signUpRequest(data: SignUpSchema) {
   try {
-    return await api.post<UserModel>("/auth/signup", data);
+    const response = await api.post<UserModel>("/auth/signup", data);
+    return response;
   } catch (error) {
     if (isApiError(error)) {
       if (error.response?.status === 409) {
@@ -37,11 +39,12 @@ export async function signUpRequest(data: SignUpSchema) {
 
 export async function recoverPasswordRequest(data: RecoverPasswordSchema) {
   try {
-    return await api.post("/auth/recover-password", data);
+    const response = await api.post("/auth/recover-password", data);
+    return response;
   } catch (error) {
     if (isApiError(error)) {
       if (error.response?.status === 404) {
-        throw new Error("E-mail não encontrado!");
+        throw new Error("Cadastro não encontrado!");
       }
     }
 

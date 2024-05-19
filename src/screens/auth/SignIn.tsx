@@ -1,30 +1,44 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { Button, Input, Link, Terms } from "@/components";
+import { toast } from "@/helpers";
 import { useAuth, useForm } from "@/hooks";
+import type { ScreenProps } from "@/navigation";
 import { AuthTitle } from "./components";
 import { SignInSchema, signInSchema } from "./validators";
 
-export function SignInScreen({ navigation }) {
+export function SignInScreen({ navigation, route }: ScreenProps<"SignIn">) {
   const { signIn } = useAuth();
-  const { handleSubmit, register } = useForm<SignInSchema>({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: signInSchema,
-  });
+  const { handleSubmit, register, isSubmitting, getValue } =
+    useForm<SignInSchema>({
+      initialValues: {
+        email: route.params?.email || "",
+        password: "",
+      },
+      validationSchema: signInSchema,
+    });
 
   async function onSubmit(data: SignInSchema) {
-    await signIn(data);
-    await navigation.reset({
-      index: 0,
-      routes: [{ name: "Home" }],
-    });
+    try {
+      await signIn(data);
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" }],
+      });
+    } catch (error) {
+      toast({
+        type: "error",
+        text1: error.message,
+      });
+    }
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="always"
+    >
       <View style={styles.content}>
         <AuthTitle title="Entre em sua conta" />
         <Input
@@ -42,12 +56,20 @@ export function SignInScreen({ navigation }) {
           autoComplete="password"
           {...register("password")}
         />
-        <Link onPress={() => navigation.navigate("RecoverPassword")}>
+        <Link
+          disabled={isSubmitting}
+          onPress={() =>
+            navigation.navigate("RecoverPassword", { email: getValue("email") })
+          }
+        >
           Esqueci minha senha
         </Link>
-        <Button onPress={handleSubmit(onSubmit)}>Login</Button>
+        <Button isLoading={isSubmitting} onPress={handleSubmit(onSubmit)}>
+          Login
+        </Button>
         <Button
           variant="secondary"
+          disabled={isSubmitting}
           onPress={() => {
             navigation.reset({
               index: 0,

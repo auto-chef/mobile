@@ -1,31 +1,38 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { Button, Input, Terms } from "@/components";
 import { maskCPF, toast } from "@/helpers";
-import { useForm } from "@/hooks";
-import { useState } from "react";
+import { useAuth, useForm } from "@/hooks";
 import { AuthTitle } from "./components";
-import { signInRequest } from "./requests";
+import { signUpRequest } from "./requests";
 import { SignUpSchema, signUpSchema } from "./validators";
 
 export function SignUpScreen({ navigation }) {
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const { formData, handleSubmit, register, errors, setValue, clearError } =
-    useForm<SignUpSchema>({
-      initialValues: {
-        name: "",
-        cpf: "",
-        birthDate: undefined,
-        email: "",
-        password: "",
-      },
-      validationSchema: signUpSchema,
-    });
+  const { signIn } = useAuth();
+  const {
+    formData,
+    handleSubmit,
+    register,
+    errors,
+    setValue,
+    clearError,
+    isSubmitting,
+  } = useForm<SignUpSchema>({
+    initialValues: {
+      name: "",
+      cpf: "",
+      birthDate: undefined,
+      email: "",
+      password: "",
+    },
+    validationSchema: signUpSchema,
+  });
 
   async function onSubmit(data: SignUpSchema) {
     try {
-      await signInRequest(data);
+      await signUpRequest(data);
+      await signIn(data);
 
       toast({
         type: "success",
@@ -45,7 +52,10 @@ export function SignUpScreen({ navigation }) {
   }
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="always"
+    >
       <View style={styles.content}>
         <AuthTitle title="Cadastre sua conta" />
         <Input placeholder="Nome" autoFocus {...register("name")} />
@@ -59,7 +69,18 @@ export function SignUpScreen({ navigation }) {
         />
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() => setIsCalendarVisible(true)}
+          onPress={() => {
+            DateTimePickerAndroid.open({
+              value: formData.birthDate || new Date(),
+              mode: "date",
+              onChange: (event, date) => {
+                clearError("birthDate");
+                setValue("birthDate", date);
+              },
+              maximumDate: new Date(),
+              display: "spinner",
+            });
+          }}
         >
           <Input
             placeholder="Data de nascimento"
@@ -68,20 +89,6 @@ export function SignUpScreen({ navigation }) {
             error={errors.birthDate}
           />
         </TouchableOpacity>
-        {isCalendarVisible && (
-          <DateTimePicker
-            value={formData.birthDate || new Date()}
-            mode="date"
-            onChange={(event, date) => {
-              clearError("birthDate");
-              setValue("birthDate", date);
-              setIsCalendarVisible(false);
-            }}
-            maximumDate={new Date()}
-            themeVariant="dark"
-            locale="pt-BR"
-          />
-        )}
         <Input
           placeholder="E-mail"
           keyboardType="email-address"
@@ -94,8 +101,11 @@ export function SignUpScreen({ navigation }) {
           autoCapitalize="none"
           {...register("password")}
         />
-        <Button onPress={handleSubmit(onSubmit)}>Cadastrar</Button>
+        <Button onPress={handleSubmit(onSubmit)} isLoading={isSubmitting}>
+          Cadastrar
+        </Button>
         <Button
+          disabled={isSubmitting}
           variant="secondary"
           onPress={() => {
             navigation.reset({

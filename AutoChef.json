@@ -1,0 +1,324 @@
+{
+  "uuid": "a7c7f760-8bd1-4957-88b9-2a7473682e5f",
+  "lastMigration": 32,
+  "name": "AutoChef",
+  "endpointPrefix": "",
+  "latency": 500,
+  "port": 8080,
+  "hostname": "192.168.15.12",
+  "folders": [
+    {
+      "uuid": "eeda7508-4fd9-4e74-915e-557b038d05b6",
+      "name": "Auth",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "c0b3c8ee-0a0e-4782-a96c-7ed523674382"
+        },
+        {
+          "type": "route",
+          "uuid": "b3ba5ea9-b1b5-480f-9de7-fdf9df03613f"
+        },
+        {
+          "type": "route",
+          "uuid": "cd39bf1c-7759-4a63-9240-f8461d2b81c3"
+        }
+      ]
+    },
+    {
+      "uuid": "aa35d70d-fa9d-4994-a754-fa8e68a63b1b",
+      "name": "Restaurant",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "06cccdf4-df8e-477e-8873-b20339a23ff9"
+        }
+      ]
+    },
+    {
+      "uuid": "5e70be85-2919-4b36-a91b-a344bf9143cc",
+      "name": "Order",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "e97d399f-ce63-4161-9ca1-c33227d32d11"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "c0b3c8ee-0a0e-4782-a96c-7ed523674382",
+      "type": "http",
+      "documentation": "Sign In",
+      "method": "post",
+      "endpoint": "auth/signin",
+      "responses": [
+        {
+          "uuid": "079f147f-d080-4c33-925c-d0c8765e1c27",
+          "body": "{\n  \"user\": {\n    \"name\": \"Erick Nathan\",\n    \"email\": \"erick.capito@hotmail.com\",\n    \"avatarUrl\": \"https:github.com/ericknathan.png\",\n    \"phone\": \"(11) 96119-7019\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "06cccdf4-df8e-477e-8873-b20339a23ff9",
+      "type": "http",
+      "documentation": "Get restaurant list",
+      "method": "get",
+      "endpoint": "restaurants",
+      "responses": [
+        {
+          "uuid": "b40109a9-581e-4235-b5b7-7a9f8e404ebb",
+          "body": "{{data '14a9'}}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "b3ba5ea9-b1b5-480f-9de7-fdf9df03613f",
+      "type": "http",
+      "documentation": "Sign Up",
+      "method": "post",
+      "endpoint": "auth/signup",
+      "responses": [
+        {
+          "uuid": "33259cf3-212c-4387-8ff5-347fd5b574df",
+          "body": "{\n  \"user\": {\n    \"name\": \"{{body 'name'}}\",\n    \"email\": \"{{body 'email'}}\",\n    \"avatarUrl\": \"https://i.pravatar.cc/300\",\n    \"phone\": \"{{phone}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "e97d399f-ce63-4161-9ca1-c33227d32d11",
+      "type": "http",
+      "documentation": "Get orders by status",
+      "method": "get",
+      "endpoint": "orders/:status",
+      "responses": [
+        {
+          "uuid": "e533cc45-7f9a-40b7-9e71-237a7bdbf2d2",
+          "body": "[]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "EMPTY",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "status",
+              "value": "PENDINGG",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b4415e58-553d-4087-a207-572cee09fd94",
+          "body": "[\n  {\n    \"id\": \"{{faker 'number.int' 10000}}\",\n    \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n    \"price\": {{faker 'number.float' min=10 max=150}},\n    \"items\": [{{{stringify (oneOf (dataRaw 'torf'))}}}],\n    \"status\": \"{{urlParam 'status'}}\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "ONE ITEM",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "status",
+              "value": "ACCEPTED",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b46496d5-f7bb-4284-870e-0b1e4cf3e020",
+          "body": "[\n  {{#repeat 5 10 comma=true}}\n    {\n      \"id\": \"{{faker 'number.int' 10000}}\",\n      \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n      \"price\": {{faker 'number.float' min=10 max=150}},\n      \"items\": [{{{stringify (oneOf (dataRaw 'torf'))}}}],\n      \"status\": \"{{urlParam 'status'}}\"\n    }\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "FULL",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "cd39bf1c-7759-4a63-9240-f8461d2b81c3",
+      "type": "http",
+      "documentation": "Recover password",
+      "method": "post",
+      "endpoint": "auth/recover-password",
+      "responses": [
+        {
+          "uuid": "a434c449-1502-4360-a4fe-8238174a7af6",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "eeda7508-4fd9-4e74-915e-557b038d05b6"
+    },
+    {
+      "type": "folder",
+      "uuid": "aa35d70d-fa9d-4994-a754-fa8e68a63b1b"
+    },
+    {
+      "type": "folder",
+      "uuid": "5e70be85-2919-4b36-a91b-a344bf9143cc"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "e7e60327-0c93-40a9-ae3e-05daea1a68ba",
+      "id": "14a9",
+      "name": "restaurants",
+      "documentation": "",
+      "value": "[\n  {\n    \"id\": 1,\n    \"name\": \"Mc Donalds\",\n    \"image_url\":\n      \"https://designportugal.net/wp-content/uploads/2016/04/m-mcdonalds.jpg\",\n    \"background_url\":\n      \"https://revistamenu.com.br/wp-content/uploads/sites/24/2020/03/doublebigmac-1.jpg\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Divino Fogão\",\n    \"image_url\":\n      \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqJ_cPwc-c4UJfLzTi1SaHWq_4zwDdEkGyZ2zmzdcCDw&s\",\n    \"background_url\":\n      \"https://img.cybercook.com.br/imagens/receitas/340/file-de-frango-grelhado-2.jpeg\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Pizza Hut\",\n    \"image_url\":\n      \"https://yt3.googleusercontent.com/ytc/AOPolaR0bfAa132btyYxM82Bb8p6oSNI60M66uBa-EiMNQ=s176-c-k-c0x00ffffff-no-rj\",\n    \"background_url\":\n      \"https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/01/230106115455-pizza-hut-big-new-yorker.jpg?w=1115\"\n  },\n  {\n    \"id\": 4,\n    \"name\": \"Burger King\",\n    \"image_url\":\n      \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc1HZkcmu9-BMMh_dPu2EhUjvzHqECJk7ekBvldoUtfQ&s\",\n    \"background_url\":\n      \"https://vejasp.abril.com.br/wp-content/uploads/2016/12/combo-burger-king-whopper-duplo-alfredo-franco.jpeg?quality=70&strip=info&w=928&w=636\"\n  },\n  {\n    \"id\": 5,\n    \"name\": \"KFC\",\n    \"image_url\":\n      \"https://static.ifood-static.com.br/image/upload/t_medium/logosgde/ab249333-2962-43a5-ac8c-5732c1ac915a/202304261653_LCRK.png\",\n    \"background_url\":\n      \"https://tb-static.uber.com/prod/image-proc/processed_images/f57fb461cfafbbb63b57e8a50c81c5d0/c9252e6c6cd289c588c3381bc77b1dfc.jpeg\"\n  },\n  {\n    \"id\": 6,\n    \"name\": \"Baked Potato\",\n    \"image_url\":\n      \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTStptkIuwHsMd06QiorMg4SX2iMCSmpi4SQs2ppZ-xXg&s\",\n    \"background_url\":\n      \"https://www.foodandwine.com/thmb/WmSqUqk2hR42aez4_mff5veGjlY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/How-To-Bake-A-Potato-FT-BLOG0623-1b01215c4a2c4cf9bb26f395a738a20d.jpg\"\n  },\n  {\n    \"id\": 7,\n    \"name\": \"China in Box\",\n    \"image_url\":\n      \"https://play-lh.googleusercontent.com/Gx-HhjDjXhOjduDx2bFQqycE1IkW5QDD4hPH-P59WiFdTputym4xMWpH9UvFlu_YCX8\",\n    \"background_url\":\n      \"https://mercadoeconsumo.com.br/wp-content/uploads/2024/03/china_in_box_1280x800_b217020586.jpeg\"\n  }\n]"
+    },
+    {
+      "uuid": "308994bb-085b-4614-951f-7b797af859dd",
+      "id": "torf",
+      "name": "products",
+      "documentation": "",
+      "value": "[\r\n  {\r\n    \"name\": \"Frango ao molho\",\r\n    \"amount\": 1,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [{ \"amount\": 1, \"name\": \"Tomate\" }]\r\n  },\r\n  { \"name\": \"Prato Kids Parmegiana\", \"price\": {{faker 'number.float' min=5 max=50}}, \"amount\": 2 },\r\n  {\r\n    \"name\": \"Hambúrguer Tradicional\",\r\n    \"amount\": 1,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [\r\n      { \"amount\": 1, \"name\": \"Queijo\" },\r\n      { \"amount\": 1, \"name\": \"Bacon\" }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Pizza Margherita\",\r\n    \"amount\": 1,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [{ \"amount\": 1, \"name\": \"Molho de Pesto\" }]\r\n  },\r\n  {\r\n    \"name\": \"Spaghetti Carbonara\",\r\n    \"amount\": 2,\r\n    \"price\": {{faker 'number.float' min=5 max=50}}\r\n  },\r\n  {\r\n    \"name\": \"Salada Caesar\",\r\n    \"amount\": 1,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [\r\n      { \"amount\": 1, \"name\": \"Frango Grelhado\" },\r\n      { \"amount\": 1, \"name\": \"Croutons\" }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Sushi Combo\",\r\n    \"amount\": 1,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [\r\n      { \"amount\": 1, \"name\": \"Sashimi de Salmão\" },\r\n      { \"amount\": 1, \"name\": \"Sashimi de Atum\" }\r\n    ]\r\n  },\r\n  {\r\n    \"name\": \"Taco de Camarão\",\r\n    \"amount\": 3,\r\n    \"price\": {{faker 'number.float' min=5 max=50}},\r\n    \"extras\": [\r\n      { \"amount\": 1, \"name\": \"Guacamole\" },\r\n      { \"amount\": 1, \"name\": \"Pimenta Jalapeño\" }\r\n    ]\r\n  }\r\n]"
+    }
+  ],
+  "callbacks": []
+}

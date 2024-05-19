@@ -1,10 +1,11 @@
+import { NavigationProp, RouteProp, CompositeScreenProps } from "@react-navigation/native";
 import { OrderModel } from "./models";
 
 export type AppNavigation = {
   Welcome: undefined;
-  SignIn: undefined;
+  SignIn: { email?: string };
   SignUp: undefined;
-  RecoverPassword: undefined;
+  RecoverPassword: { email?: string };
   Home: undefined;
   OrderMap: OrderModel;
   OrderDetails: OrderModel;
@@ -17,3 +18,8 @@ declare global {
     interface RootParamList extends RootStackParamList, AppNavigation {}
   }
 }
+
+export type ScreenProps<ScreenName extends keyof AppNavigation = undefined> = {
+  navigation: NavigationProp<AppNavigation, ScreenName>;
+  route: RouteProp<AppNavigation, ScreenName>;
+};

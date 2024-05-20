@@ -56,6 +56,40 @@
       "responses": [
         {
           "uuid": "079f147f-d080-4c33-925c-d0c8765e1c27",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "erick.capito@fiap.com.br",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "123456Fiap",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "e032c75f-e05c-490f-9ebe-e39f682e98f2",
           "body": "{\n  \"user\": {\n    \"name\": \"Erick Nathan\",\n    \"email\": \"erick.capito@hotmail.com\",\n    \"avatarUrl\": \"https:github.com/ericknathan.png\",\n    \"phone\": \"(11) 96119-7019\"\n  }\n}",
           "latency": 0,
           "statusCode": 200,
@@ -69,7 +103,7 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true,
+          "default": false,
           "crudKey": "id",
           "callbacks": []
         }
@@ -112,6 +146,33 @@
       "method": "post",
       "endpoint": "auth/signup",
       "responses": [
+        {
+          "uuid": "ca44cae1-6dbd-4867-8357-40f3520f6a6c",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "cpf",
+              "value": "123.456.789-10",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
         {
           "uuid": "33259cf3-212c-4387-8ff5-347fd5b574df",
           "body": "{\n  \"user\": {\n    \"name\": \"{{body 'name'}}\",\n    \"email\": \"{{body 'email'}}\",\n    \"avatarUrl\": \"https://i.pravatar.cc/300\",\n    \"phone\": \"{{phone}}\"\n  }\n}",
@@ -170,10 +231,10 @@
         },
         {
           "uuid": "b4415e58-553d-4087-a207-572cee09fd94",
-          "body": "[\n  {\n    \"id\": \"{{faker 'number.int' 10000}}\",\n    \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n    \"price\": {{faker 'number.float' min=10 max=150}},\n    \"items\": [{{{stringify (oneOf (dataRaw 'torf'))}}}],\n    \"status\": \"{{urlParam 'status'}}\"\n  }\n]",
+          "body": "[\n  {\n    \"id\": \"{{faker 'number.int' 10000}}\",\n    \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n    \"price\": {{faker 'number.float' min=10 max=150}},\n    \"items\": {{{stringify (someOf (dataRaw 'torf') 1 3)}}},\n    \"status\": \"{{urlParam 'status'}}\",\n    \"created_at\": \"{{now \"yyyy-MM-dd'T'HH:mm:ss.SSS\"}}\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
-          "label": "ONE ITEM",
+          "label": "ACCEPTED",
           "headers": [],
           "bodyType": "INLINE",
           "filePath": "",
@@ -196,8 +257,35 @@
           "callbacks": []
         },
         {
+          "uuid": "29049f5a-4bb8-4979-b7c0-6e3c59403643",
+          "body": "[\n  {{#repeat 1 3 comma=true}}\n    {\n      \"id\": \"{{faker 'number.int' 10000}}\",\n      \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n      \"price\": {{faker 'number.float' min=10 max=150}},\n      \"items\": {{{stringify (someOf (dataRaw 'torf') 1 3)}}},\n      \"status\": \"{{urlParam 'status'}}\",\n      \"created_at\": \"{{date '2024-01-01' '2024-05-19' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n    }\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "PENDING",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "status",
+              "value": "PENDING",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
           "uuid": "b46496d5-f7bb-4284-870e-0b1e4cf3e020",
-          "body": "[\n  {{#repeat 5 10 comma=true}}\n    {\n      \"id\": \"{{faker 'number.int' 10000}}\",\n      \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n      \"price\": {{faker 'number.float' min=10 max=150}},\n      \"items\": [{{{stringify (oneOf (dataRaw 'torf'))}}}],\n      \"status\": \"{{urlParam 'status'}}\"\n    }\n  {{/repeat}}\n]",
+          "body": "[\n  {{#repeat 5 10 comma=true}}\n    {\n      \"id\": \"{{faker 'number.int' 10000}}\",\n      \"restaurant\": {{{stringify (oneOf (dataRaw '14a9'))}}},\n      \"price\": {{faker 'number.float' min=10 max=150}},\n      \"items\": {{{stringify (someOf (dataRaw 'torf') 1 3)}}},\n      \"status\": \"{{urlParam 'status'}}\",\n      \"created_at\": \"{{date '2024-01-01' '2024-05-19' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n    }\n  {{/repeat}}\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "FULL",

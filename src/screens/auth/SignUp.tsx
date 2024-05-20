@@ -32,7 +32,6 @@ export function SignUpScreen({ navigation }) {
   async function onSubmit(data: SignUpSchema) {
     try {
       await signUpRequest(data);
-      await signIn(data);
 
       toast({
         type: "success",
@@ -41,7 +40,7 @@ export function SignUpScreen({ navigation }) {
 
       navigation.reset({
         index: 0,
-        routes: [{ name: "Home" }],
+        routes: [{ name: "Welcome" }, { name: "SignIn" }],
       });
     } catch (error) {
       toast({
